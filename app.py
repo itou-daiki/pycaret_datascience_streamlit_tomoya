@@ -243,8 +243,15 @@ if 'uploaded_data' in st.session_state:
                             elif selected_model_name in ['rf', 'et']:
                                 from sklearn.tree import plot_tree
                                 fig, ax = plt.subplots(figsize=(40,20))
-                                plot_tree(tuned_model.estimators_[0], feature_names=train_data.columns, proportion=True, filled=True, rounded=True, ax=ax, max_depth=3, fontsize=14)  # フォントサイズを変更
-                                st.pyplot(fig)
+                                
+                                # エスティメーターの数を確認し、有効なインデックスを使用する
+                                n_estimators = len(tuned_model.estimators_)
+                                if n_estimators > 0:
+                                    estimator_index = 0  # 最初のエスティメーターを使用
+                                    plot_tree(tuned_model.estimators_[estimator_index], feature_names=train_data.columns, proportion=True, filled=True, rounded=True, ax=ax, max_depth=3, fontsize=14)
+                                    st.pyplot(fig)
+                                else:
+                                    st.warning("モデルにエスティメーターが含まれていません。")
                         
                             elif selected_model_name == 'ada':
                                 from sklearn.tree import plot_tree
