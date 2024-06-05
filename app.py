@@ -98,7 +98,8 @@ if 'uploaded_data' in st.session_state:
                                        target=target_variable, 
                                        session_id=123, 
                                        remove_outliers=remove_outliers_option,
-                                       ignore_features=ignore_variable)
+                                       ignore_features=ignore_variable,
+                                       use_gpu=True)
                     st.session_state.exp_clf101 = exp_clf101
                     st.session_state.exp_clf101_setup_done = True  # セットアップ完了フラグをセッションに保存
                     
